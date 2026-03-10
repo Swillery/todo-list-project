@@ -1,3 +1,4 @@
+/* Reset & base styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,12 +10,14 @@ body {
   height: 100vh;
 }
 
+/* Layout */
 #content {
   display: grid;
   grid-template-columns: 250px 1fr;
   height: 100vh;
 }
 
+/* Sidebar */
 #projectSidebar {
   background: #443e3b;
   border-right: 1px solid #ecd4c0;
@@ -25,17 +28,27 @@ body {
   gap: 10px;
 }
 
+/* Project items */
 .project-item {
   padding: 8px 10px;
   border-radius: 6px;
   cursor: pointer;
-  color: #ecd4c0
+  color: #ecd4c0;
+  transition: background 0.2s;
 }
 
 .project-item:hover {
   background: #947d6b;
 }
 
+/* Highlight the active project */
+.project-item.active {
+  background: #43b853; /* green highlight matching Add Task button */
+  color: #ffffff;       /* white text for contrast */
+  font-weight: bold;
+}
+
+/* Todo container */
 #todoContainer {
   background: #9e8c82;
   padding: 40px;
@@ -49,9 +62,9 @@ body {
   border-bottom: 1px solid #ecd4c0;
 }
 
+/* Floating Add Task button */
 #addTaskBtn {
   position: fixed;
-
   bottom: 30px;
   right: 30px;
 
@@ -69,6 +82,7 @@ body {
   cursor: pointer;
 }
 
+/* Modal styles */
 #todoModal {
   position: fixed;
   top: 0;
@@ -95,6 +109,7 @@ body {
   pointer-events: auto;
 }
 
+/* Todo form */
 #todoForm {
   background: #9e8c82;
   padding: 30px;
@@ -109,4 +124,54 @@ body {
 
 #todoForm>button {
     background-color: #43b853;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#projectModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  visibility: hidden;  /* hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#projectModal.show {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#projectForm {
+  background: #9e8c82;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #43b853;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+#projectForm>button {
+  background-color: #43b853;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
