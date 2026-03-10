@@ -7,7 +7,47 @@
 </head>
 <body>
     
-    <div id="content"></div>
+    <div id="content">
+        <aside id="projectSidebar"></aside>
+        <main id="todoContainer"></main>
+    </div>
+
+    <!-- floating add task button -->
+    <button id="addTaskBtn">+</button>
+
+    <!-- modal for task button -->
+    <div id="todoModal">
+        <form id="todoForm">
+
+            <h2>New Task</h2>
+
+            <input
+                type="text"
+                id="todoTitle"
+                placeholder="Task name"
+                required
+            />
+
+            <textarea
+                id="todoDesc"
+                placeholder="Description"
+            ></textarea>
+
+            <input
+                type="date"
+                id="todoDate"
+            />
+
+            <select id="todoPriority">
+                <option value="green">Low</option>
+                <option value="yellow">Medium</option>
+                <option value="red">High</option>
+            </select>
+
+            <button type="submit">Add Task</button>
+
+        </form>
+    </div>
 
 </body>
 </html>

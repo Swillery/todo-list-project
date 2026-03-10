@@ -1,11 +1,12 @@
+//todo factory function
 function createTodo(title, desc, dueDate, priorityColor, checklist = [], notes = '') {
   return {
     title,
-    id: crypto.randomUUID(),
+    id: crypto.randomUUID(), //use ~~~.id in find()
     desc,
     dueDate,
     priorityColor,
-    checklist,
+    checklist, //fill todo with empty [] to allow notes
     notes,
     completed: false,
 
