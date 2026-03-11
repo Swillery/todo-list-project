@@ -11,7 +11,7 @@ import { setupDomEvents } from "./dom/domEvents.js";
 const sidebar = document.querySelector("#projectSidebar");
 
 //default dueDate
-const dueDate = format(new Date(), "yyyy-MM-dd");
+const dueDate = format(new Date(), "MM-dd-yyyy");
 
 //currently loaded project
 let currentProjectId = null;
@@ -31,7 +31,7 @@ const studying = createTodo(
 studying.addChecklistItem("Watch lesson");
 studying.addChecklistItem("Take notes");
 studying.toggleComplete();
-studying.dueDate = format(new Date(2026, 2, 15), "yyyy-MM-dd");
+studying.dueDate = format(new Date(2026, 2, 15), "MM-dd-yyyy");
 
 const studying2 = createTodo(
   "Study Math",
@@ -40,7 +40,7 @@ const studying2 = createTodo(
   "red"
 );
 studying2.addChecklistItem("Use Calculator");
-studying2.dueDate = format(new Date(2026, 3, 21), "yyyy-MM-dd");
+studying2.dueDate = format(new Date(2026, 3, 21), "MM-dd-yyyy");
 
 // dd todos to project
 addTodoToProject(studyproject.id, studying);

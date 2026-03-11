@@ -60,6 +60,24 @@ body {
 .todo-item {
   padding: 12px;
   border-bottom: 1px solid #ecd4c0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.todo-item.completed h3,
+.todo-item.completed p {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: red;
 }
 
 /* Floating Add Task button */
@@ -174,4 +192,78 @@ body {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+#todoDetailsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent overlay */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000; /* ensure it’s above other content */
+}
+
+#todoDetailsModal.show {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#todoDetailsContent {
+  background: #9e8c82; /* match your todo container */
+  padding: 30px;
+  border-radius: 10px;
+  border: 2px solid #43b853; /* accent color */
+  width: 350px;
+  max-height: 80%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* checklist items inside modal */
+#todoDetailsContent .todo-checklist {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#todoDetailsContent .todo-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* notes paragraph */
+#todoDetailsContent p {
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+/* smooth hover for buttons inside modal */
+#todoDetailsContent button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #43b853;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#todoDetailsContent button:hover {
+  background: #379c45;
 }
