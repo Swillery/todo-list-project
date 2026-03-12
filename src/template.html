@@ -9,14 +9,11 @@
 
     <div id="content">
         <aside id="projectSidebar">
-            <!-- the add project button is inside the sidebar -->
-            <!-- it will be re-rendered dynamically in js, but okay to keep here initially -->
             <button id="addProjectBtn">+ Add Project</button>
         </aside>
         <main id="todoContainer"></main>
     </div>
 
-    <!-- project modal, outside of sidebar so it is never removed -->
     <div id="projectModal">
         <form id="projectForm">
             <h2>New Project</h2>
@@ -24,14 +21,12 @@
         </form>
     </div>
 
-    <!-- floating add task button -->
     <button id="addTaskBtn">+</button>
 
     <div id="todoDetailsModal">
         <div id="todoDetailsContent"></div>
     </div>
 
-    <!-- todo modal, also outside sidebar -->
     <div id="todoModal">
         <form id="todoForm">
             <h2>New Task</h2>
@@ -42,9 +37,9 @@
                 <!-- dynamically populated from js -->
             </select>
             <select id="todoPriority">
-                <option value="green">Low</option>
-                <option value="yellow">Medium</option>
-                <option value="red">High</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
             </select>
             <button type="submit">Add Task</button>
         </form>

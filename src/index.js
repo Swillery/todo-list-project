@@ -24,7 +24,7 @@ const studying = createTodo(
   "Study Webpack",
   "Review modules and bundling",
   dueDate,
-  "green",
+  "high",
   [],
   "Don't Give Up!",
 );
@@ -37,7 +37,7 @@ const studying2 = createTodo(
   "Study Math",
   "Figure out 2+2...It's so confusing...",
   dueDate,
-  "red"
+  "low"
 );
 studying2.addChecklistItem("Use Calculator");
 studying2.dueDate = format(new Date(2026, 3, 21), "MM-dd-yyyy");

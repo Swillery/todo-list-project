@@ -3,8 +3,9 @@ import { getProjects } from "../modules/projectManager.js";
 function createTodoElement(todo, projectId) {
   const todoElement = document.createElement("div");
   todoElement.dataset.id = todo.id;
-  todoElement.dataset.projectId = projectId; // needed for event delegation
+  todoElement.dataset.projectId = projectId;
   todoElement.classList.add("todo-item");
+  todoElement.classList.add(`priority-${todo.priorityColor}`)
 
   // checkbox
   const checkbox = document.createElement("input");

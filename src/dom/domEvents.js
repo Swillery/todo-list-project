@@ -123,6 +123,8 @@ export function setupDomEvents(currentProjectIdRef) {
       todoDate.value,
       todoPriority.value
     );
+
+    console.log(todoPriority);
     addTodoToProject(todoProject.value, newTodo);
     renderTodos(todoProject.value);
     todoModal.classList.remove("show");
@@ -152,7 +154,6 @@ export function setupDomEvents(currentProjectIdRef) {
     renderProjects(projectId);
   });
 
-  // event delegation inside todo container
   todoContainer.addEventListener("click", e => {
     const todoEl = e.target.closest(".todo-item");
     if (!todoEl) return;
