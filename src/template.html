@@ -18,6 +18,7 @@
         <form id="projectForm">
             <h2>New Project</h2>
             <input type="text" id="projectName" placeholder="Project Name" required />
+            <button type="submit">Add Project</button>
         </form>
     </div>
 
@@ -31,7 +32,7 @@
         <form id="todoForm">
             <h2>New Task</h2>
             <input type="text" id="todoTitle" placeholder="Task name" required />
-            <textarea id="todoDesc" placeholder="Description"></textarea>
+            <textarea id="todoDesc" placeholder="Description..."></textarea>
             <input type="date" id="todoDate" />
             <select id="todoProject">
                 <!-- dynamically populated from js -->
@@ -41,6 +42,18 @@
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
+
+            <textarea id="todoNotes" placeholder="Notes..."></textarea>
+
+            <div id="checklistBuilder">
+                <label>Checklist</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="checklistInput" placeholder="Add Checklist Item" />
+                    <button type="button" id="addChecklistItemBtn">+ Add</button>
+                </div>
+                <ul id="checklistPreview"></ul>
+            </div>
+
             <button type="submit">Add Task</button>
         </form>
     </div>

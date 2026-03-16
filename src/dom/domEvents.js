@@ -1,25 +1,29 @@
 import createTodo from '../modules/todo.js';
-import { addTodoToProject, getProjects, addProject } from '../modules/projectManager.js';
+import { addTodoToProject, getProjects, addProject, save, deleteProject } from '../modules/projectManager.js';
 import renderTodos from './renderTodos.js';
 import renderProjects from './renderProjects.js';
+import { format } from "date-fns";
 
 // helper to build details content
 export function buildDetailsContent(todo) {
   const container = document.createElement("div");
   container.classList.add("todo-details");
 
-  if (todo.notes) {
-    const notes = document.createElement("p");
+  const notesLabel = document.createElement("label");
+  notesLabel.textContent = "Notes";
 
-    // make sure notes is a string
-    if (typeof todo.notes === "object") {
-      notes.textContent = todo.notes.text ?? JSON.stringify(todo.notes);
-    } else {
-      notes.textContent = `Notes: ${todo.notes}`;
-    }
+  const notesField = document.createElement("textarea");
+  notesField.value = todo.notes || "";
+  notesField.placeholder = "Add a note...";
 
-    container.appendChild(notes);
-  }
+  // save back to the todo object on every keystroke
+  notesField.addEventListener("input", () => {
+    todo.notes = notesField.value;
+    save();
+  });
+
+  container.appendChild(notesLabel);
+  container.appendChild(notesField);
 
   if (todo.checklist && todo.checklist.length > 0) {
     const checklistContainer = document.createElement("ul");
@@ -28,7 +32,12 @@ export function buildDetailsContent(todo) {
 
       const itemCheckbox = document.createElement("input");
       itemCheckbox.type = "checkbox";
-      itemCheckbox.checked = todo.completedItems?.includes(index) || false;
+      itemCheckbox.checked = item.done || false;
+
+      itemCheckbox.addEventListener("change", () => {
+        todo.checklist[index].done = itemCheckbox.checked;
+        save();
+      });
 
       const label = document.createElement("span");
 
@@ -60,8 +69,13 @@ export function setupDomEvents(currentProjectIdRef) {
   const todoTitle = document.querySelector('#todoTitle');
   const todoDesc = document.querySelector('#todoDesc');
   const todoDate = document.querySelector('#todoDate');
+  const todoNotes = document.querySelector('#todoNotes');
   const todoPriority = document.querySelector('#todoPriority');
   const todoProject = document.querySelector('#todoProject');
+  const checklistInput = document.querySelector('#checklistInput');
+  const addChecklistItemBtn = document.querySelector('#addChecklistItemBtn');
+  const checklistPreview = document.querySelector('#checklistPreview');
+  let pendingChecklist = [];
 
   // project modal
   const addProjectBtn = document.querySelector('#addProjectBtn');
@@ -86,8 +100,6 @@ export function setupDomEvents(currentProjectIdRef) {
     });
   }
 
-  renderProjects(currentProjectIdRef.value);
-
   // todo modal
   addTaskBtn.addEventListener("click", () => {
     populateProjectDropdown();
@@ -100,7 +112,6 @@ export function setupDomEvents(currentProjectIdRef) {
   });
 
   // project modal
-  addProjectBtn.addEventListener("click", () => projectModal.classList.add("show"));
   projectModal.addEventListener("click", e => {
     if (e.target === projectModal) projectModal.classList.remove("show");
   });
@@ -113,22 +124,56 @@ export function setupDomEvents(currentProjectIdRef) {
       detailsModal.classList.remove("show");
     }
   });
+  
+  //checklist in form modal
+  addChecklistItemBtn.addEventListener("click", () => {
+    const text = checklistInput.value.trim();
+    if (!text) return;
+
+    pendingChecklist.push(text);
+
+    const li = document.createElement("li");
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    li.textContent = text;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "✕";
+    removeBtn.type = "button";
+    removeBtn.style.cssText = "background:none; border:none; cursor:pointer; opacity:0.5;";
+
+    removeBtn.addEventListener("click", () => {
+      const index = pendingChecklist.indexOf(text);
+      if (index !== -1) pendingChecklist.splice(index, 1);
+      li.remove();
+    });
+
+    li.appendChild(removeBtn);
+    checklistPreview.appendChild(li);
+    checklistInput.value = "";
+    checklistInput.focus();
+  });
 
   // handle new todo
   todoForm.addEventListener("submit", e => {
     e.preventDefault();
+
     const newTodo = createTodo(
       todoTitle.value,
       todoDesc.value,
-      todoDate.value,
-      todoPriority.value
+      format(new Date(todoDate.value + "T00:00:00"), "MM/dd/yyyy"),
+      todoPriority.value,
+      pendingChecklist.map(text => ({ text, done:false })),
+      todoNotes.value
     );
 
-    console.log(todoPriority);
     addTodoToProject(todoProject.value, newTodo);
     renderTodos(todoProject.value);
     todoModal.classList.remove("show");
     todoForm.reset();
+    pendingChecklist = [];
+    checklistPreview.innerHTML = "";
     todoProject.value = currentProjectIdRef.value;
   });
 
@@ -140,6 +185,7 @@ export function setupDomEvents(currentProjectIdRef) {
     const newProject = addProject(name);
     currentProjectIdRef.value = newProject.id;
     renderProjects(currentProjectIdRef.value);
+    renderTodos(currentProjectIdRef.value);
     populateProjectDropdown();
     projectModal.classList.remove("show");
     projectForm.reset();
@@ -147,6 +193,31 @@ export function setupDomEvents(currentProjectIdRef) {
 
   // sidebar project clicks
   sidebar.addEventListener("click", e => {
+
+    if (e.target.id === "addProjectBtn") {
+      projectModal.classList.add("show");
+      return;
+    }
+
+    if (e.target.classList.contains("project-delete-btn")) {
+      const projectID = e.target.dataset.id;
+      deleteProject(projectID);
+
+      if (currentProjectIdRef.value === projectID) {
+        const remaining = getProjects();
+        if (remaining.length > 0) {
+          currentProjectIdRef.value = remaining[0].id;
+          renderTodos(currentProjectIdRef.value);
+        } else {
+          currentProjectIdRef.value = null;
+          document.querySelector("#todoContainer").innerHTML = "";
+        }
+      }
+
+      renderProjects(currentProjectIdRef.value);
+      return;
+    }
+
     const projectId = e.target.dataset.id;
     if (!projectId) return;
     currentProjectIdRef.value = projectId;
@@ -165,12 +236,14 @@ export function setupDomEvents(currentProjectIdRef) {
     // toggle completion
     if (e.target.tagName === "INPUT" && e.target.type === "checkbox" && !e.target.classList.contains("todo-checklist-checkbox")) {
       todo.toggleComplete();
+      save();
       renderTodos(projectId);
     }
 
     // delete todo
     if (e.target.classList.contains("todo-delete-btn")) {
       project.todos = project.todos.filter(t => t.id !== todo.id);
+      save();
       renderTodos(projectId);
     }
 

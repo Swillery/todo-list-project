@@ -17,6 +17,13 @@ function renderProjects(currentProjectId) {
     if (currentProjectId && project.id === currentProjectId) {
       projectElement.classList.add("active");
     }
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "🗑";
+    deleteBtn.classList.add("project-delete-btn");
+    deleteBtn.dataset.id = project.id
+    projectElement.appendChild(deleteBtn);
+
     sidebar.appendChild(projectElement);
   });
   const addProjectBtn = document.createElement("button");
