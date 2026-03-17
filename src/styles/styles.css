@@ -10,6 +10,10 @@ body {
   height: 100vh;
 }
 
+textarea, input {
+  padding: 5px;
+}
+
 /* Layout */
 #content {
   display: grid;
@@ -34,7 +38,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
   color: #ecd4c0;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,6 +46,7 @@ body {
 
 .project-item:hover {
   background: #947d6b;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Highlight the active project */
@@ -49,6 +54,7 @@ body {
   background: #43b853; /* green highlight matching Add Task button */
   color: #ffffff;       /* white text for contrast */
   font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -79,6 +85,7 @@ body {
   border-bottom: none;
   border-radius: 8px;
   display: flex;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   align-items: center;
   justify-content: space-between;
   gap: 10px;
@@ -128,24 +135,47 @@ body {
   cursor: pointer;
   font-size: 18px;
   color: #c0392b;
+  opacity: 0.5;
 }
 
-/* Floating Add Task button */
+.todo-delete-btn:hover {
+  opacity: 1;
+}
+
+/* Add Task button */
 #addTaskBtn {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  left: 270px;
+  padding: 10px;
+  width: calc(100% - 290px);
 
-  width: 60px;
-  height: 60px;
-
-  border-radius: 50%;
+  border-radius: 8px;
   border: none;
 
-  font-size: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+  font-size: 20px;
+  font-weight: bold;
 
   background: #43b853;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+#addProjectBtn {
+  padding: 5px;
+
+  border-radius: 8px;
+  border: none;
+
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+  font-weight: bold;
+
+  background: #43b853;
+  color: #ffffff;
 
   cursor: pointer;
 }
@@ -193,11 +223,37 @@ body {
 #todoForm>button {
     background-color: #43b853;
     color: white;
+    font-weight: bold;
     border: none;
     padding: 10px;
     border-radius: 6px;
     cursor: pointer;
+    box-shadow: none;
+    transition: box-shadow 0.2s ease;
 }
+
+#todoForm>button:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#todoForm textarea {
+  min-height: 60px;
+  max-height: 272px;
+  resize: vertical;
+}
+
+#addChecklistItemBtn {
+  background-color: #43b853;
+  color: white;
+  font-weight: bold;
+  align-self: stretch;
+  padding: 1px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 40px;
+}
+
 
 .todo-details-btn {
   background: none;
@@ -208,18 +264,25 @@ body {
 }
 
 .todo-details-btn:hover {
-  color: #379c45;
+  color: #2e8339;
 }
 
 .todo-details label {
   display: block;
   text-align: center;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  font-size: x-large;
 }
 
 .todo-details textarea {
   display: block;
   margin: 0 auto;
+  width: 250px;
+  min-height: 70px;
+  resize: vertical;
+  margin-bottom: 12px;
+  padding: 5px;
 }
 
 #projectModal {
@@ -303,6 +366,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-items: center;
 }
 
 /* checklist items inside modal */
@@ -314,10 +378,11 @@ body {
   gap: 8px;
 }
 
-#todoDetailsContent .todo-checklist li {
+#todoDetailsContent li {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 4px;
 }
 
 /* notes paragraph */
@@ -334,7 +399,7 @@ body {
   background: #43b853;
   color: white;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
 }
 
 #todoDetailsContent button:hover {

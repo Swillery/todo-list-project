@@ -6,7 +6,7 @@ function createTodo(title, desc, dueDate, priorityColor, checklist = [], notes =
     desc,
     dueDate,
     priorityColor,
-    checklist, //fill todo with empty [] to allow notes
+    checklist,
     notes,
     completed: false,
 

@@ -9,20 +9,19 @@
 
     <div id="content">
         <aside id="projectSidebar">
-            <button id="addProjectBtn">+ Add Project</button>
+            <button id="addProjectBtn">Add Project</button>
         </aside>
         <main id="todoContainer"></main>
+        <button id="addTaskBtn">+Add Task</button>
     </div>
 
     <div id="projectModal">
         <form id="projectForm">
             <h2>New Project</h2>
-            <input type="text" id="projectName" placeholder="Project Name" required />
+            <input type="text" id="projectName" placeholder="Project Name" maxlength="30" required/>
             <button type="submit">Add Project</button>
         </form>
     </div>
-
-    <button id="addTaskBtn">+</button>
 
     <div id="todoDetailsModal">
         <div id="todoDetailsContent"></div>
@@ -31,8 +30,8 @@
     <div id="todoModal">
         <form id="todoForm">
             <h2>New Task</h2>
-            <input type="text" id="todoTitle" placeholder="Task name" required />
-            <textarea id="todoDesc" placeholder="Description..."></textarea>
+            <input type="text" id="todoTitle" maxlength="40" placeholder="Task name" required />
+            <textarea id="todoDesc" placeholder="Description..." maxlength="60"></textarea>
             <input type="date" id="todoDate" />
             <select id="todoProject">
                 <!-- dynamically populated from js -->
@@ -48,8 +47,8 @@
             <div id="checklistBuilder">
                 <label>Checklist</label>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="checklistInput" placeholder="Add Checklist Item" />
-                    <button type="button" id="addChecklistItemBtn">+ Add</button>
+                    <input type="text" id="checklistInput" placeholder="Add Checklist Item" maxlength="40"/>
+                    <button type="button" id="addChecklistItemBtn">+</button>
                 </div>
                 <ul id="checklistPreview"></ul>
             </div>
