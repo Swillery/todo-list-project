@@ -6,12 +6,11 @@ import "./styles/styles.css";
 import { setupDomEvents } from "./dom/domEvents.js";
 import { addProject, addTodoToProject } from "./modules/projectManager.js";
 import createTodo from "./modules/todo.js";
-import { format } from "date-fns"; 
-
+import { format } from "date-fns";
 
 //auto render first project
 const projects = getProjects();
-let currentProjectId = null;
+let currentProjectId;
 
 if (projects.length > 0) {
   currentProjectId = projects[0].id;
@@ -24,8 +23,8 @@ if (projects.length > 0) {
     format(new Date(), "MM/dd/yyyy"),
     "high",
     [{ text: "Add Checklist Items As Well!", done: true }],
-    "This is where you can enter and edit notes..."
-  )
+    "This is where you can enter and edit notes...",
+  );
 
   addTodoToProject(welcomeProject.id, welcomeTodo);
   currentProjectId = welcomeProject.id;

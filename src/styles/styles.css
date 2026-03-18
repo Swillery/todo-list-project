@@ -3,14 +3,15 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
   height: 100vh;
 }
 
-textarea, input {
+textarea,
+input {
   padding: 5px;
 }
 
@@ -52,11 +53,10 @@ textarea, input {
 /* Highlight the active project */
 .project-item.active {
   background: #43b853; /* green highlight matching Add Task button */
-  color: #ffffff;       /* white text for contrast */
+  color: #ffffff; /* white text for contrast */
   font-weight: bold;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 .project-delete-btn {
   background: none;
@@ -192,7 +192,7 @@ textarea, input {
   justify-content: center;
   align-items: center;
 
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
 
   /* hidden by default */
   visibility: hidden;
@@ -220,20 +220,20 @@ textarea, input {
   width: 300px;
 }
 
-#todoForm>button {
-    background-color: #43b853;
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: none;
-    transition: box-shadow 0.2s ease;
+#todoForm > button {
+  background-color: #43b853;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: box-shadow 0.2s ease;
 }
 
-#todoForm>button:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+#todoForm > button:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #todoForm textarea {
@@ -253,7 +253,6 @@ textarea, input {
   cursor: pointer;
   width: 40px;
 }
-
 
 .todo-details-btn {
   background: none;
@@ -298,7 +297,7 @@ textarea, input {
 
   background: rgba(0, 0, 0, 0.4);
 
-  visibility: hidden;  /* hidden by default */
+  visibility: hidden; /* hidden by default */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -321,7 +320,7 @@ textarea, input {
   width: 300px;
 }
 
-#projectForm>button {
+#projectForm > button {
   background-color: #43b853;
   color: white;
   padding: 8px;

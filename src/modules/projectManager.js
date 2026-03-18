@@ -6,18 +6,18 @@ const projects = [];
 const saved = localStorage.getItem("projects");
 
 if (saved) {
-  JSON.parse(saved).forEach(rawProject => {
+  JSON.parse(saved).forEach((rawProject) => {
     const project = createProject(rawProject.name);
-    project.id = rawProject.id
+    project.id = rawProject.id;
 
-    rawProject.todos.forEach(rawTodo => {
+    rawProject.todos.forEach((rawTodo) => {
       const todo = createTodo(
         rawTodo.title,
         rawTodo.desc,
         rawTodo.dueDate,
         rawTodo.priorityColor,
         rawTodo.checklist,
-        rawTodo.notes
+        rawTodo.notes,
       );
       todo.id = rawTodo.id;
       todo.completed = rawTodo.completed;
@@ -45,7 +45,7 @@ function getProjects() {
 }
 
 function addTodoToProject(projectId, todo) {
-  const project = projects.find(p => p.id === projectId);
+  const project = projects.find((p) => p.id === projectId);
   if (project) {
     project.addTodo(todo);
     save();
@@ -53,7 +53,7 @@ function addTodoToProject(projectId, todo) {
 }
 
 function deleteProject(projectID) {
-  const index = projects.findIndex(p => p.id === projectID);
+  const index = projects.findIndex((p) => p.id === projectID);
 
   if (index !== -1) {
     projects.splice(index, 1);
@@ -61,4 +61,4 @@ function deleteProject(projectID) {
   }
 }
 
-export { addProject, getProjects, addTodoToProject, save, deleteProject};
+export { addProject, getProjects, addTodoToProject, save, deleteProject };

@@ -1,7 +1,7 @@
 //project factory function
 function createProject(name, todos = []) {
   return {
-    id: crypto.randomUUID(),  //use ~~~.id in find()
+    id: crypto.randomUUID(), //use ~~~.id in find()
     name,
     todos,
 
@@ -10,9 +10,9 @@ function createProject(name, todos = []) {
     },
 
     removeTodo(todoId) {
-      this.todos = this.todos.filter(todo => todo.id !== todoId);
-    }
+      this.todos = this.todos.filter((todo) => todo.id !== todoId);
+    },
   };
 }
 
-export default createProject
+export default createProject;

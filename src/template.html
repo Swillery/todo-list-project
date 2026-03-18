@@ -1,62 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Todo Listifier</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <div id="content">
-        <aside id="projectSidebar">
-            <button id="addProjectBtn">Add Project</button>
-        </aside>
-        <main id="todoContainer"></main>
-        <button id="addTaskBtn">+Add Task</button>
+      <aside id="projectSidebar">
+        <button id="addProjectBtn">Add Project</button>
+      </aside>
+      <main id="todoContainer"></main>
+      <button id="addTaskBtn">+Add Task</button>
     </div>
 
     <div id="projectModal">
-        <form id="projectForm">
-            <h2>New Project</h2>
-            <input type="text" id="projectName" placeholder="Project Name" maxlength="30" required/>
-            <button type="submit">Add Project</button>
-        </form>
+      <form id="projectForm">
+        <h2>New Project</h2>
+        <input
+          type="text"
+          id="projectName"
+          placeholder="Project Name"
+          maxlength="30"
+          required
+        />
+        <button type="submit">Add Project</button>
+      </form>
     </div>
 
     <div id="todoDetailsModal">
-        <div id="todoDetailsContent"></div>
+      <div id="todoDetailsContent"></div>
     </div>
 
     <div id="todoModal">
-        <form id="todoForm">
-            <h2>New Task</h2>
-            <input type="text" id="todoTitle" maxlength="40" placeholder="Task name" required />
-            <textarea id="todoDesc" placeholder="Description..." maxlength="60"></textarea>
-            <input type="date" id="todoDate" />
-            <select id="todoProject">
-                <!-- dynamically populated from js -->
-            </select>
-            <select id="todoPriority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
+      <form id="todoForm">
+        <h2>New Task</h2>
+        <input
+          type="text"
+          id="todoTitle"
+          maxlength="40"
+          placeholder="Task name"
+          required
+        />
+        <textarea
+          id="todoDesc"
+          placeholder="Description..."
+          maxlength="60"
+        ></textarea>
+        <input type="date" id="todoDate" />
+        <select id="todoProject">
+          <!-- dynamically populated from js -->
+        </select>
+        <select id="todoPriority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
 
-            <textarea id="todoNotes" placeholder="Notes..."></textarea>
+        <textarea id="todoNotes" placeholder="Notes..."></textarea>
 
-            <div id="checklistBuilder">
-                <label>Checklist</label>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="checklistInput" placeholder="Add Checklist Item" maxlength="40"/>
-                    <button type="button" id="addChecklistItemBtn">+</button>
-                </div>
-                <ul id="checklistPreview"></ul>
-            </div>
+        <div id="checklistBuilder">
+          <label>Checklist</label>
+          <div style="display: flex; gap: 8px">
+            <input
+              type="text"
+              id="checklistInput"
+              placeholder="Add Checklist Item"
+              maxlength="40"
+            />
+            <button type="button" id="addChecklistItemBtn">+</button>
+          </div>
+          <ul id="checklistPreview"></ul>
+        </div>
 
-            <button type="submit">Add Task</button>
-        </form>
+        <button type="submit">Add Task</button>
+      </form>
     </div>
-
-</body>
+  </body>
 </html>

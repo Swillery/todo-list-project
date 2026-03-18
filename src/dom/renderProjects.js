@@ -7,7 +7,7 @@ function renderProjects(currentProjectId) {
   //clear sidebar before rendering
   sidebar.innerHTML = "";
 
-  projects.forEach(project => {
+  projects.forEach((project) => {
     const projectElement = document.createElement("div");
     projectElement.textContent = project.name;
     //attach project id to the element
@@ -21,7 +21,7 @@ function renderProjects(currentProjectId) {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "🗑";
     deleteBtn.classList.add("project-delete-btn");
-    deleteBtn.dataset.id = project.id
+    deleteBtn.dataset.id = project.id;
     projectElement.appendChild(deleteBtn);
 
     sidebar.appendChild(projectElement);

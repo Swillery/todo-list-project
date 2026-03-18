@@ -1,5 +1,12 @@
 //todo factory function
-function createTodo(title, desc, dueDate, priorityColor, checklist = [], notes = '') {
+function createTodo(
+  title,
+  desc,
+  dueDate,
+  priorityColor,
+  checklist = [],
+  notes = "",
+) {
   return {
     title,
     id: crypto.randomUUID(), //use ~~~.id in find()
@@ -23,7 +30,7 @@ function createTodo(title, desc, dueDate, priorityColor, checklist = [], notes =
 
     toggleChecklistItem(index) {
       this.checklist[index].done = !this.checklist[index].done;
-    }
+    },
   };
 }
 

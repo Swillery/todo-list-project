@@ -1,7 +1,13 @@
-import createTodo from '../modules/todo.js';
-import { addTodoToProject, getProjects, addProject, save, deleteProject } from '../modules/projectManager.js';
-import renderTodos from './renderTodos.js';
-import renderProjects from './renderProjects.js';
+import createTodo from "../modules/todo.js";
+import {
+  addTodoToProject,
+  getProjects,
+  addProject,
+  save,
+  deleteProject,
+} from "../modules/projectManager.js";
+import renderTodos from "./renderTodos.js";
+import renderProjects from "./renderProjects.js";
 import { format } from "date-fns";
 
 // helper to build details content
@@ -60,28 +66,27 @@ export function buildDetailsContent(todo) {
 }
 
 export function setupDomEvents(currentProjectIdRef) {
-  const sidebar = document.querySelector('#projectSidebar');
+  const sidebar = document.querySelector("#projectSidebar");
 
   // todo modal
-  const addTaskBtn = document.querySelector('#addTaskBtn');
-  const todoModal = document.querySelector('#todoModal');
-  const todoForm = document.querySelector('#todoForm');
-  const todoTitle = document.querySelector('#todoTitle');
-  const todoDesc = document.querySelector('#todoDesc');
-  const todoDate = document.querySelector('#todoDate');
-  const todoNotes = document.querySelector('#todoNotes');
-  const todoPriority = document.querySelector('#todoPriority');
-  const todoProject = document.querySelector('#todoProject');
-  const checklistInput = document.querySelector('#checklistInput');
-  const addChecklistItemBtn = document.querySelector('#addChecklistItemBtn');
-  const checklistPreview = document.querySelector('#checklistPreview');
+  const addTaskBtn = document.querySelector("#addTaskBtn");
+  const todoModal = document.querySelector("#todoModal");
+  const todoForm = document.querySelector("#todoForm");
+  const todoTitle = document.querySelector("#todoTitle");
+  const todoDesc = document.querySelector("#todoDesc");
+  const todoDate = document.querySelector("#todoDate");
+  const todoNotes = document.querySelector("#todoNotes");
+  const todoPriority = document.querySelector("#todoPriority");
+  const todoProject = document.querySelector("#todoProject");
+  const checklistInput = document.querySelector("#checklistInput");
+  const addChecklistItemBtn = document.querySelector("#addChecklistItemBtn");
+  const checklistPreview = document.querySelector("#checklistPreview");
   let pendingChecklist = [];
 
   // project modal
-  const addProjectBtn = document.querySelector('#addProjectBtn');
-  const projectModal = document.querySelector('#projectModal');
-  const projectForm = document.querySelector('#projectForm');
-  const projectNameInput = document.querySelector('#projectName');
+  const projectModal = document.querySelector("#projectModal");
+  const projectForm = document.querySelector("#projectForm");
+  const projectNameInput = document.querySelector("#projectName");
 
   // details modal
   const detailsModal = document.querySelector("#todoDetailsModal");
@@ -91,8 +96,8 @@ export function setupDomEvents(currentProjectIdRef) {
 
   // helper to populate project dropdown
   function populateProjectDropdown() {
-    todoProject.innerHTML = '';
-    getProjects().forEach(p => {
+    todoProject.innerHTML = "";
+    getProjects().forEach((p) => {
       const opt = document.createElement("option");
       opt.value = p.id;
       opt.textContent = p.name;
@@ -107,24 +112,24 @@ export function setupDomEvents(currentProjectIdRef) {
     todoModal.classList.add("show");
   });
 
-  todoModal.addEventListener("click", e => {
+  todoModal.addEventListener("click", (e) => {
     if (e.target === todoModal) todoModal.classList.remove("show");
   });
 
   // project modal
-  projectModal.addEventListener("click", e => {
+  projectModal.addEventListener("click", (e) => {
     if (e.target === projectModal) projectModal.classList.remove("show");
   });
 
   // escape closes all modals
-  document.addEventListener("keydown", e => {
+  document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() === "escape") {
       todoModal.classList.remove("show");
       projectModal.classList.remove("show");
       detailsModal.classList.remove("show");
     }
   });
-  
+
   //checklist in form modal
   addChecklistItemBtn.addEventListener("click", () => {
     const text = checklistInput.value.trim();
@@ -141,7 +146,8 @@ export function setupDomEvents(currentProjectIdRef) {
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "✕";
     removeBtn.type = "button";
-    removeBtn.style.cssText = "background:none; border:none; cursor:pointer; opacity:0.5;";
+    removeBtn.style.cssText =
+      "background:none; border:none; cursor:pointer; opacity:0.5;";
 
     removeBtn.addEventListener("click", () => {
       const index = pendingChecklist.indexOf(text);
@@ -156,7 +162,7 @@ export function setupDomEvents(currentProjectIdRef) {
   });
 
   // handle new todo
-  todoForm.addEventListener("submit", e => {
+  todoForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const newTodo = createTodo(
@@ -164,8 +170,8 @@ export function setupDomEvents(currentProjectIdRef) {
       todoDesc.value,
       format(new Date(todoDate.value + "T00:00:00"), "MM/dd/yyyy"),
       todoPriority.value,
-      pendingChecklist.map(text => ({ text, done:false })),
-      todoNotes.value
+      pendingChecklist.map((text) => ({ text, done: false })),
+      todoNotes.value,
     );
 
     addTodoToProject(todoProject.value, newTodo);
@@ -178,7 +184,7 @@ export function setupDomEvents(currentProjectIdRef) {
   });
 
   // handle new project
-  projectForm.addEventListener("submit", e => {
+  projectForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = projectNameInput.value.trim();
     if (!name) return;
@@ -192,8 +198,7 @@ export function setupDomEvents(currentProjectIdRef) {
   });
 
   // sidebar project clicks
-  sidebar.addEventListener("click", e => {
-
+  sidebar.addEventListener("click", (e) => {
     if (e.target.id === "addProjectBtn") {
       projectModal.classList.add("show");
       return;
@@ -225,16 +230,20 @@ export function setupDomEvents(currentProjectIdRef) {
     renderProjects(projectId);
   });
 
-  todoContainer.addEventListener("click", e => {
+  todoContainer.addEventListener("click", (e) => {
     const todoEl = e.target.closest(".todo-item");
     if (!todoEl) return;
 
     const projectId = todoEl.dataset.projectId;
-    const project = getProjects().find(p => p.id === projectId);
-    const todo = project.todos.find(t => t.id === todoEl.dataset.id);
+    const project = getProjects().find((p) => p.id === projectId);
+    const todo = project.todos.find((t) => t.id === todoEl.dataset.id);
 
     // toggle completion
-    if (e.target.tagName === "INPUT" && e.target.type === "checkbox" && !e.target.classList.contains("todo-checklist-checkbox")) {
+    if (
+      e.target.tagName === "INPUT" &&
+      e.target.type === "checkbox" &&
+      !e.target.classList.contains("todo-checklist-checkbox")
+    ) {
       todo.toggleComplete();
       save();
       renderTodos(projectId);
@@ -242,7 +251,7 @@ export function setupDomEvents(currentProjectIdRef) {
 
     // delete todo
     if (e.target.classList.contains("todo-delete-btn")) {
-      project.todos = project.todos.filter(t => t.id !== todo.id);
+      project.todos = project.todos.filter((t) => t.id !== todo.id);
       save();
       renderTodos(projectId);
     }
@@ -256,7 +265,7 @@ export function setupDomEvents(currentProjectIdRef) {
   });
 
   // close details modal on overlay click
-  detailsModal.addEventListener("click", e => {
+  detailsModal.addEventListener("click", (e) => {
     if (e.target === detailsModal) detailsModal.classList.remove("show");
   });
 }

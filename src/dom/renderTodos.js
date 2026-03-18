@@ -5,7 +5,7 @@ function createTodoElement(todo, projectId) {
   todoElement.dataset.id = todo.id;
   todoElement.dataset.projectId = projectId;
   todoElement.classList.add("todo-item");
-  todoElement.classList.add(`priority-${todo.priorityColor}`)
+  todoElement.classList.add(`priority-${todo.priorityColor}`);
 
   // checkbox
   const checkbox = document.createElement("input");
@@ -50,7 +50,7 @@ function createTodoElement(todo, projectId) {
 function renderTodos(projectId) {
   const todoContainer = document.querySelector("#todoContainer");
   const projects = getProjects();
-  const project = projects.find(p => p.id === projectId);
+  const project = projects.find((p) => p.id === projectId);
   if (!project) return;
 
   todoContainer.innerHTML = "";
@@ -61,7 +61,7 @@ function renderTodos(projectId) {
   todoContainer.appendChild(projectTitle);
 
   // render each todo
-  project.todos.forEach(todo => {
+  project.todos.forEach((todo) => {
     const todoEl = createTodoElement(todo, projectId);
     todoContainer.appendChild(todoEl);
   });
